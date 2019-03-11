@@ -92,7 +92,7 @@ public class CircuitData {
         for(int key: logicGates.keySet()){
             if(key==id){
                 logicGates.get(key).setInput(logicGates.get(i1ID).getOutput());
-                logicGates.get(key).setConnectionId(i1ID);
+                logicGates.get(key).setConnectionOneId(i1ID);
                 logicGates.get(i1ID).setOutputId(key);
             }
         }
@@ -107,7 +107,7 @@ public class CircuitData {
         for(int key: logicGates.keySet()){
             if(key==id){
                 logicGates.get(key).setInput2(logicGates.get(i2ID).getOutput());
-                logicGates.get(key).setConnectionId(i2ID);
+                logicGates.get(key).setConnectionTwoId(i2ID);
                 logicGates.get(i2ID).setOutputId(key);
             }
         }

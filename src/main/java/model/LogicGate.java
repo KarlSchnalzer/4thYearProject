@@ -20,14 +20,15 @@ public class LogicGate {
      * @param yc - the y-coordinate of the gate
      */
     public LogicGate(double xc, double yc){
-        input1 = null; //inputs 1 & 2 set to null originally
-        input2 = null; //since there is no connection upon placement
+        //input1, input2, output, connectionOneId, connection2, output and outputId all set to null originally
+        // since there is no connection upon placement
+        input1 = null;
         x = xc;
         y = yc;
-        output = null; // same reason as inputs 1 & 2
-        connectionOneId = null; //""
-        connectionTwoId = null;//""
-        outputId = null; //""
+        output = null;
+        connectionOneId = null;
+        connectionTwoId = null;
+        outputId = null;
     }
 
     /**
@@ -73,12 +74,15 @@ public class LogicGate {
      * sets a logic gate to be connected to the first input of the current gate
      * @param cId - the id of the first connectee logic gate
      */
-    public void setConnectionId(Integer cId){
-        if(connectionOneId==null){
+    public void setConnectionOneId(Integer cId){
             connectionOneId = cId;
-        }else{
+    }
+    /**
+     * sets a logic gate to be connected to the first input of the current gate
+     * @param cId - the id of the second connectee logic gate
+     */
+    public void setConnectionTwoId(Integer cId){
             connectionTwoId = cId;
-        }
     }
     /**
      * sets the first connection to null in case of a disconnection

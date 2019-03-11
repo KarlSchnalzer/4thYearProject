@@ -104,35 +104,7 @@ public class CircuitData {
         }
     }
     public static void main(String[] args){
-        CircuitData data = new CircuitData();
-        Input i1 = new Input(1,1);
-        Input i2 = new Input(1,2);
-        Input i3 = new Input(1,3);
-        Input i4 = new Input(1,4);
-        i1.setOutput(1);
-        i2.setOutput(1);
-        i3.setOutput(1);
-        i4.setOutput(1);
-        AndGate ag = new AndGate(2,1);
-        AndGate ag2 = new AndGate(2,2);
-        AndGate ag3 = new AndGate(3,1);
-        Output o = new Output(4,1);
-        data.addGate(1,i1);
-        data.addGate(2,i2);
-        data.addGate(3,i3);
-        data.addGate(4,i4);
-        data.addGate(5,ag);
-        data.addGate(6,ag2);
-        data.addGate(7,ag3);
-        data.addGate(8,o);
-        data.setInput(5,1);
-        data.setInput2(5,2);
-        data.setInput(6,3);
-        data.setInput2(6,4);
-        data.setInput(7,5);
-        data.setInput2(7,6);
-        data.setInput(8,7);
-        System.out.println(data.getGateInput(8));
+
     }
 }
 

@@ -28,6 +28,12 @@ public class CircuitData {
         logicGates.put((int) id,lg);
         //id++;
     }
+
+    /**
+     * Removes the selected logic gate from the hash map along with removing its connection id
+     * from any gates that were possibly connected to it
+     * @param id - id of the gate being removed
+     */
     public void removeGate(long id){
         if(logicGates.get(id).getConnectionOneId()!=null){
             logicGates.get(logicGates.get(id).getConnectionOneId()).disconnectOutput();
@@ -48,6 +54,11 @@ public class CircuitData {
         logicGates.remove(id);
     }
 
+    /**
+     *
+     * @param id - id of the gate being selected
+     * @return returns the output of the selected gate
+     */
     public int getGateOutput(int id){
         for(int key: logicGates.keySet()){
             if(key==id){
@@ -56,6 +67,12 @@ public class CircuitData {
         }
         return 0;
     }
+
+    /**
+     *
+     * @param id - id of the gate being selected
+     * @return returns the first input of the gate, this is the method used for gates with only one input
+     */
     public int getGateInput(int id){
         for(int key: logicGates.keySet()){
             if(key==id){
@@ -66,8 +83,8 @@ public class CircuitData {
     }
 
     /**
-     * Sets the input value of the selected gate, also sets  the connection id of the gate and the output id
-     * of the gate providing the input
+     * Sets the input value of the selected gate, also sets the connection id of the gate and the output id
+     * of the gate providing the input, this is the method used for gates with only one input
      * @param id - ID of the gate which is receiving the input
      * @param i1ID - ID of the Gate providing the input
      */
@@ -80,6 +97,12 @@ public class CircuitData {
             }
         }
     }
+    /**
+     * Sets the second input value of the selected gate, also sets the connection id of the gate and the output id
+     * of the gate providing the input
+     * @param id - ID of the gate which is receiving the input
+     * @param i2ID - ID of the Gate providing the input
+     */
     public void setInput2(int id, int i2ID){
         for(int key: logicGates.keySet()){
             if(key==id){
@@ -89,6 +112,12 @@ public class CircuitData {
             }
         }
     }
+
+    /**
+     * Sets the x-coordinate of the selected gate
+     * @param id - the id of the gate being selected
+     * @param xc - the new x-coordinate
+     */
     public void setX(long id, double xc){
         for(int key: logicGates.keySet()){
             if(key==id){
@@ -96,6 +125,11 @@ public class CircuitData {
             }
         }
     }
+    /**
+     * Sets the y-coordinate of the selected gate
+     * @param id - the id of the gate being selected
+     * @param yc - the new y-coordinate
+     */
     public void setY(long id, double yc){
         for(int key: logicGates.keySet()){
             if(key==id){

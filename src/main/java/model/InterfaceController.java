@@ -23,7 +23,7 @@ public class InterfaceController {
     public void newChange( ) {
         if(fl.getMsgType()==1){
             if(fl.getType().equals("AND")){
-                AndGate ag = new AndGate(fl.getX(),fl.getY()); // create new AND gate with the fields provided in JSON file
+                AndGate ag = new AndGate(fl.getX(),fl.getY()); // create new AND gate with the fields provided in a JSON file
                 data.addGate(counter,ag);
             }
             else if(fl.getType().equals("OR")){

@@ -100,7 +100,7 @@ public class LogicGate {
     }
     /**
      * sets the id of the element receiving the signal from the gate
-     * @param oId
+     * @param oId - the id of the gate sending the signal (or output)
      */
     public void setOutputId(Integer oId){
         outputId = oId;
@@ -108,7 +108,13 @@ public class LogicGate {
     public void setOutput(int o){
         output = o;
     }
-
+    /**
+     * Method used only for input switches, turns the input switch on or off depending on its current state,
+     * on has a value of 1, off has a value of 0
+     */
+    public void turnOnOrOff(){
+        this.setOutput(Math.abs(getOutput()-1));
+    }
     /**
      *
      * @return - the x-coordinate of the gate

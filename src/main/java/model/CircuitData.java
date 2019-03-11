@@ -137,6 +137,18 @@ public class CircuitData {
             }
         }
     }
+    /**
+     * turns the input switch on or off depending on its current state,
+     * on has a value of 1, off has a value of 0
+     */
+    public void turnOnOrOff(long id){
+        for(int key: logicGates.keySet()){
+            if(key==id){
+                logicGates.get(key).turnOnOrOff();
+            }
+        }
+
+    }
     public static void main(String[] args){
 
     }

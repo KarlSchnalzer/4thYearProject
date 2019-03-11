@@ -146,6 +146,14 @@ public class CircuitData {
             if(key==id){
                 logicGates.get(key).turnOnOrOff();
             }
+            for(int i = key; logicGates.get(i).getOutputId() != null; i = logicGates.get(i).getOutputId()){
+                if(logicGates.get(logicGates.get(i).getOutputId()).getConnectionOneId() == i){
+                    logicGates.get(logicGates.get(i).getOutputId()).setInput(logicGates.get(i).getOutput());
+                }
+                else if(logicGates.get(logicGates.get(i).getOutputId()).getConnectionTwoId() == i){
+                    logicGates.get(logicGates.get(i).getOutputId()).setInput2(logicGates.get(i).getOutput());
+                }
+            }
         }
 
     }

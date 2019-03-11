@@ -23,27 +23,27 @@ public class InterfaceController {
     public void newChange( ) {
         if(fl.getMsgType()==1){
             if(fl.getType().equals("AND")){
-                AndGate ag = new AndGate(fl.getX(),fl.getY());
+                AndGate ag = new AndGate(fl.getX(),fl.getY()); // create new AND gate with the fields provided in JSON file
                 data.addGate(counter,ag);
             }
             else if(fl.getType().equals("OR")){
-                OrGate og = new OrGate(fl.getX(),fl.getY());
+                OrGate og = new OrGate(fl.getX(),fl.getY()); // create new OR gate with the fields provided in JSON file
                 data.addGate(counter,og);
             }
             else if(fl.getType().equals("XOR")){
-                XorGate xg = new XorGate(fl.getX(),fl.getY());
+                XorGate xg = new XorGate(fl.getX(),fl.getY()); // create new XOR gate with the fields provided in JSON file
                 data.addGate(counter,xg);
             }
             else if(fl.getType().equals("NOT")){
-                NotGate ng = new NotGate(fl.getX(),fl.getY());
+                NotGate ng = new NotGate(fl.getX(),fl.getY()); // create new NOT gate with the fields provided in JSON file
                 data.addGate(counter, ng);
             }
             else if(fl.getType().equals("INP")){
-                Input i = new Input(fl.getX(),fl.getY());
+                Input i = new Input(fl.getX(),fl.getY()); // create new INPUT gate with the fields provided in JSON file
                 data.addGate(counter, i);
             }
             else if(fl.getType().equals("OUT")){
-                Output o = new Output(fl.getX(),fl.getY());
+                Output o = new Output(fl.getX(),fl.getY()); // create new OUTPUT gate with the fields provided in JSON file
                 data.addGate(counter, o);
             }
         }

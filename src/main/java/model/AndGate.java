@@ -27,7 +27,7 @@ public class AndGate extends LogicGate{
      * Computes the output of the AND gate using boolean logic for the inputs
      * @return - the output of the gate
      */
-    public int getOutput(){
+    public Integer getOutput(){
         if(getInput1()==1 && getInput2()==1){
             return 1;
         }

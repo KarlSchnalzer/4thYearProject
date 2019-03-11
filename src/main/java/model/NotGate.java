@@ -28,7 +28,7 @@ public class NotGate extends LogicGate{
      * Computes the output of the NOT gate using boolean logic for the inputs
      * @return - the output of the gate
      */
-    public int getOutput(){
+    public Integer getOutput(){
         return Math.abs(getInput1()-1);
     }
 

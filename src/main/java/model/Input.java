@@ -24,4 +24,6 @@ public class Input extends LogicGate{
     }
 
 
+
+
 }

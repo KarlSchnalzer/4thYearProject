@@ -127,14 +127,14 @@ public class LogicGate {
     /**
      * @return - the first input of the gate
      */
-    public int getInput1(){
+    public Integer getInput1(){
         return input1;
     }
 
     /**
      * @return - the second input of the gate
      */
-    public int getInput2(){
+    public Integer getInput2(){
         return input2;
     }
     /**
@@ -158,7 +158,7 @@ public class LogicGate {
      *
      * @return the output of the logic gate
      */
-    public int getOutput(){
+    public Integer getOutput(){
         return output;
     }
 }

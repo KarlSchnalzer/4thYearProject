@@ -21,59 +21,10 @@ public class InterfaceController {
 
     }
 
-//    @RequestMapping("/newChange")
-//    public void newChange( ) {
-//        if(fl.getMsgType()==1){
-//            if(fl.getType().equals("AND")){
-//                AndGate ag = new AndGate(fl.getX(),fl.getY()); // create new AND gate with the fields provided in a JSON file
-//                data.addGate(counter,ag);
-//            }
-//            else if(fl.getType().equals("OR")){
-//                OrGate og = new OrGate(fl.getX(),fl.getY()); // create new OR gate with the fields provided in JSON file
-//                data.addGate(counter,og);
-//            }
-//            else if(fl.getType().equals("XOR")){
-//                XorGate xg = new XorGate(fl.getX(),fl.getY()); // create new XOR gate with the fields provided in JSON file
-//                data.addGate(counter,xg);
-//            }
-//            else if(fl.getType().equals("NOT")){
-//                NotGate ng = new NotGate(fl.getX(),fl.getY()); // create new NOT gate with the fields provided in JSON file
-//                data.addGate(counter, ng);
-//            }
-//            else if(fl.getType().equals("INP")){
-//                Input i = new Input(fl.getX(),fl.getY()); // create new INPUT gate with the fields provided in JSON file
-//                data.addGate(counter, i);
-//            }
-//            else if(fl.getType().equals("OUT")){
-//                Output o = new Output(fl.getX(),fl.getY()); // create new OUTPUT gate with the fields provided in JSON file
-//                data.addGate(counter, o);
-//            }
-//        }
-//        else if(fl.getMsgType()==2){
-//            data.setX(fl.getId(),fl.getX());
-//            data.setY(fl.getId(),fl.getY());
-//        }
-//        else if(fl.getMsgType()==3){
-//            data.removeGate(fl.getId());
-//        }
-//        else if(fl.getMsgType()==4){
-////    		data.get(fl.getId()).setOutputId(fl.getID2());
-////    		data.get(fl.getID2()).setConnectionId(fl.getId());
-//            data.get(fl.getID2()).setInput(data.get(fl.getId()).getOutput);
-//        }
-//        else if(fl.getMsgType()==5){
-//            if(data.get(fl.getId()).getConnectionOneId()==data.get(fl.getId2()).getOutputId()){
-//                data.get(fl.getId2()).disconnectOutput();
-//                data.get(fl.getId()).disconnectC1();
-//            }else if(data.get(fl.getId()).getConnectionTwoId()==data.get(fl.getId2()).getOutputId()){
-//                data.get(fl.getId2()).disconnectOutput();
-//                data.get(fl.getId()).disconnectC2();
-//            }
-//        }
-//       else if(fl.getMsgType()==6){
-//           data.turnOnOrOff(fl.getId());
-//        }
-//    }
+    @RequestMapping("/newChange")
+    public void newChange(@RequestBody NewChange nc ) {
+        nc.update();
+    }
 
 }
 

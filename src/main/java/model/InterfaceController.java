@@ -52,15 +52,6 @@ package model;
 //            data.setY(fl.getId(),fl.getY());
 //        }
 //        else if(fl.getMsgType()==3){
-//            if(data.get(fl.getId()).getConnectionOneId()!=null){
-//                data.get(fl.getId().getConnectionOneId()).disconnectC1();
-//            }
-//            if(data.get(fl.getId()).getConnectionTwoId()!=null){
-//                data.get(fl.getId().getConnectionTwoId()).disconnectC2();
-//            }
-//            if(data.get(fl.getId()).getOutputId()!=null){
-//                data.get(fl.getId().getOutputId()).disconnectOutput();
-//            }
 //            data.removeGate(fl.getId());
 //        }
 //        else if(fl.getMsgType()==4){
@@ -77,8 +68,8 @@ package model;
 //                data.get(fl.getId()).disconnectC2();
 //            }
 //        }
-//        else if(fl.getMsgType()==6){
-//
+//       else if(fl.getMsgType()==6){
+//           data.get(fl.getID()).turnOnOrOff();
 //        }
 //    }
 //

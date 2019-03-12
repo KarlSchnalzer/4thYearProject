@@ -146,6 +146,8 @@ public class CircuitData {
             if(key==id){
                 logicGates.get(key).turnOnOrOff();
             }
+            //When a switch is turned on/off every gate that is affected by this input must change their
+            //output as well therefore, while there is an outputId, that gate must be updated as well
             for(int i = key; logicGates.get(i).getOutputId() != null; i = logicGates.get(i).getOutputId()){
                 if(logicGates.get(logicGates.get(i).getOutputId()).getConnectionOneId() == i){
                     logicGates.get(logicGates.get(i).getOutputId()).setInput(logicGates.get(i).getOutput());

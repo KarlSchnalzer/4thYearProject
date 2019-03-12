@@ -109,7 +109,7 @@ public class LogicGate {
     public void setOutputId(Integer oId){
         outputId = oId;
     }
-    public void setOutput(int o){
+    public void setOutput(Integer o){
         output = o;
     }
     /**

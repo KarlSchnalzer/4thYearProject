@@ -28,6 +28,9 @@ public class CircuitData {
         logicGates.put((int) id,lg);
         //id++;
     }
+    public LogicGate getGate(long id){
+        return logicGates.get(id);
+    }
 
     /**
      * Removes the selected logic gate from the hash map along with removing its connection id

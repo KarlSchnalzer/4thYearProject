@@ -1,7 +1,10 @@
 package model;
 
+import java.util.Queue;
+
 public class NewChange {
     public static CircuitData CIRCUIT_DATA;
+    public static Queue<NewChange> que;
     private Integer eventId;
     private Integer elementID;
     private double x;
@@ -10,6 +13,15 @@ public class NewChange {
     private Integer input;
     private Integer output;
     private String state;
+
+    public NewChange(){
+
+    }
+    public NewChange(Integer eventId, Integer elementId, String state){
+        this.eventId = eventId;
+        this.elementID = elementId;
+        this.state = state;
+    }
 
     public void setEventId(Integer e){
         this.eventId = e;
@@ -108,5 +120,8 @@ public class NewChange {
                 CIRCUIT_DATA.turnOnOrOff(getElementID());
         }
 
+    }
+    public NewChange release(){
+       return CIRCUIT_DATA.getNewChange();
     }
 }

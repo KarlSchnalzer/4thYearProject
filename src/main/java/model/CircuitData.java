@@ -3,6 +3,7 @@ package model;
 import com.sun.org.apache.xpath.internal.operations.And;
 
 import java.util.HashMap;
+import java.util.Queue;
 
 
 /**
@@ -13,6 +14,7 @@ import java.util.HashMap;
  */
 public class CircuitData {
     private HashMap<Integer,LogicGate> logicGates;
+    private Queue<NewChange> que; //Queue for NewChange JSON files being passed to client
     //private long id;
     //private static Socket socket;
 
@@ -28,10 +30,33 @@ public class CircuitData {
         logicGates.put((int) id,lg);
         //id++;
     }
+    public void addNewChange(NewChange nc){
+        que.add(nc);
+    }
+    /**
+     *
+     * @param id - ID of the gate the user wishes to return
+     * @return returns the Logic Gate with the corresponding ID
+     */
     public LogicGate getGate(long id){
         return logicGates.get(id);
     }
 
+    /**
+     *
+     * @return - returns the NewChange JSON file at the front of the queue,
+     * if there is nothing in the queue, the method returns a message with the eventID 0
+     * meaning there are no new updates.
+     */
+    public NewChange getNewChange(){
+        if(que.peek()==null){
+            NewChange nc = new NewChange(0,null,null);
+            return nc;
+        }else {
+            NewChange nc = que.remove();
+            return nc;
+        }
+    }
     /**
      * Removes the selected logic gate from the hash map along with removing its connection id
      * from any gates that were possibly connected to it
@@ -149,12 +174,31 @@ public class CircuitData {
         for(int key: logicGates.keySet()){
             if(key==id){
                 logicGates.get(key).turnOnOrOff();
+                //If gates output is 1, a message will be created to be sent to the client to update that the
+                //gate is "ON", else (0) the gate will be "OFF"
+                if(logicGates.get(key).getOutput()==1){
+                    NewChange nc = new NewChange(6,logicGates.get(key).getOutputId(),"ON");
+                    que.add(nc);
+                }else{
+                    NewChange nc = new NewChange(6,logicGates.get(key).getOutputId(),"OFF");
+                    que.add(nc);
+                }
             }
             //When a switch is turned on/off every gate that is affected by this input must change their
             //output as well therefore, while there is an outputId, that gate must be updated as well
             for(int i = key; logicGates.get(i).getOutputId() != null; i = logicGates.get(i).getOutputId()){
                 if(logicGates.get(logicGates.get(i).getOutputId()).getConnectionOneId() == i){
                     logicGates.get(logicGates.get(i).getOutputId()).setInput(logicGates.get(i).getOutput());
+                    //If gates output is 1, a message will be created to be sent to the client to update that the
+                    //gate is "ON", else (0) the gate will be "OFF"
+                    if(logicGates.get(logicGates.get(i).getOutputId()).getOutput()==1 ||
+                            logicGates.get(logicGates.get(i).getOutputId()).getOutput()==null){
+                        NewChange nc = new NewChange(6,logicGates.get(i).getOutputId(),"ON");
+                        que.add(nc);
+                    }else{
+                        NewChange nc = new NewChange(6,logicGates.get(i).getOutputId(),"OFF");
+                        que.add(nc);
+                    }
                 }
                 else if(logicGates.get(logicGates.get(i).getOutputId()).getConnectionTwoId() == i){
                     logicGates.get(logicGates.get(i).getOutputId()).setInput2(logicGates.get(i).getOutput());

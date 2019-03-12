@@ -23,7 +23,13 @@ public class Input extends LogicGate{
         this.setOutput(0);
     }
 
-
+    /**
+     * Method used only for input switches, turns the input switch on or off depending on its current state,
+     * on has a value of 1, off has a value of 0
+     */
+    public void turnOnOrOff(){
+        this.setOutput(Math.abs(getOutput()-1));
+    }
 
 
 }

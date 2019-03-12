@@ -1,24 +1,26 @@
 package model;
 
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.concurrent.atomic.AtomicLong;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//@RestController
-//public class InterfaceController {
-//    private CircuitData data = new CircuitData();
-//    private long counter = 1;
-//
-//    @RequestMapping("/getNewElementID")
-//    public NewElementJsonFile getNewElementID() {
-//        return new NewElementJsonFile(counter, true);
-//        counter = counter+1;
-//    }
-//
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class InterfaceController {
+    private CircuitData data = new CircuitData();
+    private long counter = 1;
+
+    @RequestMapping("/getNewElementID")
+    public NewElementJsonFile getNewElementID() {
+        NewElementJsonFile retVal = new NewElementJsonFile(counter, true);
+        counter = counter+1;
+        return retVal;
+
+    }
+
 //    @RequestMapping("/newChange")
 //    public void newChange( ) {
 //        if(fl.getMsgType()==1){
@@ -69,10 +71,10 @@ package model;
 //            }
 //        }
 //       else if(fl.getMsgType()==6){
-//           data.get(fl.getID()).turnOnOrOff();
+//           data.turnOnOrOff(fl.getId());
 //        }
 //    }
-//
-//}
-//
-//
+
+}
+
+

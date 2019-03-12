@@ -117,7 +117,7 @@ public class LogicGate {
      * on has a value of 1, off has a value of 0
      */
     public void turnOnOrOff(){
-        this.setOutput(Math.abs(getOutput()-1));
+        //doNothing, this should only be used for input gates
     }
     /**
      *

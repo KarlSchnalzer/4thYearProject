@@ -140,6 +140,7 @@ public class CircuitData {
     /**
      * turns the input switch on or off depending on its current state,
      * on has a value of 1, off has a value of 0
+     * @param id - the id of the gate being selected
      */
     public void turnOnOrOff(long id){
         for(int key: logicGates.keySet()){
@@ -160,7 +161,6 @@ public class CircuitData {
 
     }
     public static void main(String[] args){
-
     }
 }
 

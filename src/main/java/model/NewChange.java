@@ -55,27 +55,27 @@ public class NewChange {
         switch(eventId){
             case 1:
                 if(getType().equals("AND")){
-                AndGate ag = new AndGate(getX(),getY()); // create new AND gate with the fields provided in a JSON file
+                    AndGate ag = new AndGate(getX(),getY()); // create new AND gate with the fields provided in a JSON file
                     CIRCUIT_DATA.addGate(getElementID(),ag);
                 }
                 else if(getType().equals("OR")){
-                OrGate og = new OrGate(getX(),getY()); // create new OR gate with the fields provided in JSON file
+                    OrGate og = new OrGate(getX(),getY()); // create new OR gate with the fields provided in JSON file
                     CIRCUIT_DATA.addGate(getElementID(),og);
                  }
                 else if(getType().equals("XOR")){
-                XorGate xg = new XorGate(getX(),getY()); // create new XOR gate with the fields provided in JSON file
+                    XorGate xg = new XorGate(getX(),getY()); // create new XOR gate with the fields provided in JSON file
                     CIRCUIT_DATA.addGate(getElementID(),xg);
                 }
                 else if(getType().equals("NOT")){
-                NotGate ng = new NotGate(getX(),getY()); // create new NOT gate with the fields provided in JSON file
+                    NotGate ng = new NotGate(getX(),getY()); // create new NOT gate with the fields provided in JSON file
                     CIRCUIT_DATA.addGate(getElementID(), ng);
                 }
                 else if(getType().equals("INP")){
-                Input i = new Input(getX(),getY()); // create new INPUT gate with the fields provided in JSON file
+                    Input i = new Input(getX(),getY()); // create new INPUT gate with the fields provided in JSON file
                     CIRCUIT_DATA.addGate(getElementID(), i);
                 }
                 else if(getType().equals("OUT")){
-                Output o = new Output(getX(),getY()); // create new OUTPUT gate with the fields provided in JSON file
+                    Output o = new Output(getX(),getY()); // create new OUTPUT gate with the fields provided in JSON file
                     CIRCUIT_DATA.addGate(getElementID(), o);
                 }
                 return;

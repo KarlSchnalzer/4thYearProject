@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class InterfaceController {
-    private CircuitData data = new CircuitData();
+    //private CircuitData data = new CircuitData();
     private long counter = 1;
 
     @RequestMapping("/getNewElementID")

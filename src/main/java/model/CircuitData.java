@@ -29,8 +29,8 @@ public class CircuitData {
      * Adds the type of logic gate to the "Gates map"
      * @param lg - the logic gate being added to the map
      */
-    public void addGate(long id,LogicGate lg){
-        logicGates.put((int) id,lg);
+    public void addGate(int id,LogicGate lg){
+        logicGates.put( id,lg);
         //id++;
     }
     public void addNewChange(NewChange nc){
@@ -41,7 +41,7 @@ public class CircuitData {
      * @param id - ID of the gate the user wishes to return
      * @return returns the Logic Gate with the corresponding ID
      */
-    public LogicGate getGate(long id){
+    public LogicGate getGate(int id){
         return logicGates.get(id);
     }
 
@@ -53,7 +53,7 @@ public class CircuitData {
      */
     public NewChange getNewChange(){
         if(list.isEmpty()){
-            NewChange nc = new NewChange(0,null,null);
+            NewChange nc = new NewChange(0,0,false);
             return nc;
         }else {
             NewChange nc = list.remove(0);
@@ -65,7 +65,7 @@ public class CircuitData {
      * from any gates that were possibly connected to it
      * @param id - id of the gate being removed
      */
-    public void removeGate(long id){
+    public void removeGate(int id){
         if(logicGates.get(id).getConnectionOneId()!=null){
             logicGates.get(logicGates.get(id).getConnectionOneId()).disconnectOutput();
         }
@@ -113,6 +113,8 @@ public class CircuitData {
         return 0;
     }
 
+
+
     /**
      * Sets the input value of the selected gate, also sets the connection id of the gate and the output id
      * of the gate providing the input, this is the method used for gates with only one input
@@ -122,9 +124,16 @@ public class CircuitData {
     public void setInput(int id, int i1ID){
         for(int key: logicGates.keySet()){
             if(key==id){
-                logicGates.get(key).setInput(logicGates.get(i1ID).getOutput());
-                logicGates.get(key).setConnectionOneId(i1ID);
-                logicGates.get(i1ID).setOutputId(key);
+                if(logicGates.get(logicGates.get(id).getOutputId()).getConnectionOneId()== null){
+                    logicGates.get(id).setInput(logicGates.get(i1ID).getOutput());
+                    logicGates.get(id).setConnectionOneId(i1ID);
+                    logicGates.get(i1ID).setOutputId(id);
+                }
+                else if(logicGates.get(logicGates.get(id).getOutputId()).getConnectionTwoId()== null){
+                    logicGates.get(id).setInput2(logicGates.get(i1ID).getOutput());
+                    logicGates.get(id).setConnectionTwoId(i1ID);
+                    logicGates.get(i1ID).setOutputId(id);
+                }
             }
         }
     }
@@ -173,17 +182,17 @@ public class CircuitData {
      * on has a value of 1, off has a value of 0
      * @param id - the id of the gate being selected
      */
-    public void turnOnOrOff(long id){
+    public void turnOnOrOff(int id){
         for(int key: logicGates.keySet()){
             if(key==id) {
                 logicGates.get(key).turnOnOrOff();
                 //If gates output is 1, a message will be created to be sent to the client to update that the
                 //gate is "ON", else (0) the gate will be "OFF"
                 if (logicGates.get(key).getOutput() == 1) {
-                    NewChange nc = new NewChange(6, logicGates.get(key).getOutputId(), "ON");
+                    NewChange nc = new NewChange(6, logicGates.get(key).getOutputId(), true);
                     list.add(nc);
                 } else {
-                    NewChange nc = new NewChange(6, logicGates.get(key).getOutputId(), "OFF");
+                    NewChange nc = new NewChange(6, logicGates.get(key).getOutputId(), false);
                     list.add(nc);
                 }
 
@@ -206,13 +215,13 @@ public class CircuitData {
 
     }
 
-    private void createNewChange6(Integer i) {
+    private void createNewChange6(int i) {
         if (logicGates.get(logicGates.get(i).getOutputId()).getOutput() == null || logicGates.get(logicGates.get(i).getOutputId()).getOutput() == 1) {
-            NewChange nc = new NewChange(6, logicGates.get(i).getOutputId(), "ON");
+            NewChange nc = new NewChange(6, logicGates.get(i).getOutputId(), true);
             list.add(nc);
         }
         else{
-            NewChange nc = new NewChange(6, logicGates.get(i).getOutputId(), "OFF");
+            NewChange nc = new NewChange(6, logicGates.get(i).getOutputId(), false);
             list.add(nc);
         }
     }

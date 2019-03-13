@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InterfaceController {
     //private CircuitData data = new CircuitData();
-    private long counter = 1;
+    private int counter = 1;
 
     @RequestMapping("/getNewElementID")
     public NewElementJsonFile getNewElementID() {
         NewElementJsonFile retVal = new NewElementJsonFile(counter, true);
-        counter = counter+1;
+        counter++;
         return retVal;
 
     }
@@ -24,6 +24,12 @@ public class InterfaceController {
     @RequestMapping("/newChange")
     public void newChange(@RequestBody NewChange nc ) {
         nc.update();
+    }
+
+    @RequestMapping("/random")
+    public NewChange random(){
+        NewChange nc = new NewChange(1,1,NewChange.CIRCUIT_DATA.getGate(1).getState());
+        return nc;
     }
 
     @RequestMapping("/getNewChanges")

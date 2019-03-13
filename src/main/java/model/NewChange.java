@@ -3,29 +3,29 @@ package model;
 public class NewChange {
     public static CircuitData CIRCUIT_DATA;
    // public static Queue<NewChange> que;
-    private Integer eventID;
-    private Integer element;
+    private int eventID;
+    private int element;
     private double x;
     private double y;
     private String type;
-    private Integer input;
-    private Integer output;
-    private String state;
+    private int input;
+    private int output;
+    private boolean state;
 
     public NewChange(){
 
     }
-    public NewChange(Integer eventId, Integer elementId, String state){
+    public NewChange(int eventId, int elementId, boolean state){
         this.eventID = eventId;
         this.element = elementId;
         this.state = state;
     }
 
-    public void setEventID(Integer e){
+    public void setEventID(int e){
         this.eventID = e;
     }
 
-    public void setElement(Integer id){
+    public void setElement(int id){
         this.element = id;
     }
     public void setX(double x){
@@ -35,31 +35,31 @@ public class NewChange {
         this.y = y;
     }
 
-    public void setInput(Integer input) {
+    public void setInput(int input) {
         this.input = input;
     }
 
-    public void setOutput(Integer output) {
+    public void setOutput(int output) {
         this.output = output;
     }
     public void setType(String t){
         this.type = t;
     }
-    public void setState(String state) {
+    public void setState(boolean state) {
         this.state = state;
     }
-    public Integer getEventID(){
+    public int getEventID(){
         return eventID;
     }
-    public Integer getElement(){
+    public int getElement(){
         return element;
     }
     public double getX(){return x;}
     public double getY(){return y;}
     public String getType(){return type;}
-    public Integer getInput(){return input;}
-    public Integer getOutput(){return output;}
-    public String getState(){return state;}
+    public int getInput(){return input;}
+    public int getOutput(){return output;}
+    public boolean getState(){return state;}
 
     public void update() {
         switch(eventID){
@@ -97,14 +97,7 @@ public class NewChange {
                 CIRCUIT_DATA.removeGate(getElement());
                 break;
             case 4:
-                if(CIRCUIT_DATA.getGate(getOutput()).getConnectionOneId()== null){
-                    CIRCUIT_DATA.setInput(getInput(), getOutput());
-
-                }
-                else if(CIRCUIT_DATA.getGate(getOutput()).getConnectionTwoId()== null){
-                    CIRCUIT_DATA.setInput2(getInput(), getOutput());
-
-                }
+                CIRCUIT_DATA.setInput(getInput(), getOutput());
                 break;
             case 5:
                 if(CIRCUIT_DATA.getGate(getInput()).getConnectionOneId()==CIRCUIT_DATA.getGate(getOutput()).getOutputId()){

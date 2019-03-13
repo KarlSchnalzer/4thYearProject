@@ -1,12 +1,10 @@
 package model;
 
-import java.util.Queue;
-
 public class NewChange {
     public static CircuitData CIRCUIT_DATA;
-    public static Queue<NewChange> que;
-    private Integer eventId;
-    private Integer elementID;
+   // public static Queue<NewChange> que;
+    private Integer eventID;
+    private Integer element;
     private double x;
     private double y;
     private String type;
@@ -18,17 +16,17 @@ public class NewChange {
 
     }
     public NewChange(Integer eventId, Integer elementId, String state){
-        this.eventId = eventId;
-        this.elementID = elementId;
+        this.eventID = eventId;
+        this.element = elementId;
         this.state = state;
     }
 
-    public void setEventId(Integer e){
-        this.eventId = e;
+    public void setEventID(Integer e){
+        this.eventID = e;
     }
 
-    public void setElementID(Integer id){
-        this.elementID  = id;
+    public void setElement(Integer id){
+        this.element = id;
     }
     public void setX(double x){
         this.x = x;
@@ -50,11 +48,11 @@ public class NewChange {
     public void setState(String state) {
         this.state = state;
     }
-    public Integer getEventId(){
-        return eventId;
+    public Integer getEventID(){
+        return eventID;
     }
-    public Integer getElementID(){
-        return elementID;
+    public Integer getElement(){
+        return element;
     }
     public double getX(){return x;}
     public double getY(){return y;}
@@ -64,49 +62,50 @@ public class NewChange {
     public String getState(){return state;}
 
     public void update() {
-        switch(eventId){
+        switch(eventID){
             case 1:
                 if(getType().equals("AND")){
                     AndGate ag = new AndGate(getX(),getY()); // create new AND gate with the fields provided in a JSON file
-                    CIRCUIT_DATA.addGate(getElementID(),ag);
+                    CIRCUIT_DATA.addGate(getElement(),ag);
                 }
                 else if(getType().equals("OR")){
                     OrGate og = new OrGate(getX(),getY()); // create new OR gate with the fields provided in JSON file
-                    CIRCUIT_DATA.addGate(getElementID(),og);
+                    CIRCUIT_DATA.addGate(getElement(),og);
                  }
                 else if(getType().equals("XOR")){
                     XorGate xg = new XorGate(getX(),getY()); // create new XOR gate with the fields provided in JSON file
-                    CIRCUIT_DATA.addGate(getElementID(),xg);
+                    CIRCUIT_DATA.addGate(getElement(),xg);
                 }
                 else if(getType().equals("NOT")){
                     NotGate ng = new NotGate(getX(),getY()); // create new NOT gate with the fields provided in JSON file
-                    CIRCUIT_DATA.addGate(getElementID(), ng);
+                    CIRCUIT_DATA.addGate(getElement(), ng);
                 }
                 else if(getType().equals("INP")){
                     Input i = new Input(getX(),getY()); // create new INPUT gate with the fields provided in JSON file
-                    CIRCUIT_DATA.addGate(getElementID(), i);
+                    CIRCUIT_DATA.addGate(getElement(), i);
                 }
                 else if(getType().equals("OUT")){
                     Output o = new Output(getX(),getY()); // create new OUTPUT gate with the fields provided in JSON file
-                    CIRCUIT_DATA.addGate(getElementID(), o);
+                    CIRCUIT_DATA.addGate(getElement(), o);
                 }
-                return;
+                break;
             case 2:
-                CIRCUIT_DATA.setX(getElementID(),getX());
-                CIRCUIT_DATA.setY(getElementID(),getY());
-                return;
+                CIRCUIT_DATA.setX(getElement(),getX());
+                CIRCUIT_DATA.setY(getElement(),getY());
+                break;
             case 3:
-                CIRCUIT_DATA.removeGate(getElementID());
-                return;
+                CIRCUIT_DATA.removeGate(getElement());
+                break;
             case 4:
                 if(CIRCUIT_DATA.getGate(getOutput()).getConnectionOneId()== null){
                     CIRCUIT_DATA.setInput(getInput(), getOutput());
-                    return;
+
                 }
                 else if(CIRCUIT_DATA.getGate(getOutput()).getConnectionTwoId()== null){
                     CIRCUIT_DATA.setInput2(getInput(), getOutput());
-                    return;
+
                 }
+                break;
             case 5:
                 if(CIRCUIT_DATA.getGate(getInput()).getConnectionOneId()==CIRCUIT_DATA.getGate(getOutput()).getOutputId()){
                     CIRCUIT_DATA.getGate(getOutput()).disconnectOutput();
@@ -115,13 +114,14 @@ public class NewChange {
                     CIRCUIT_DATA.getGate(getOutput()).disconnectOutput();
                     CIRCUIT_DATA.getGate(getInput()).disconnectC2();
                 }
-                return;
+                break;
             case 6:
-                CIRCUIT_DATA.turnOnOrOff(getElementID());
+                CIRCUIT_DATA.turnOnOrOff(getElement());
+                break;
         }
 
     }
-    public NewChange release(){
-       return CIRCUIT_DATA.getNewChange();
-    }
+//    public NewChange release(){
+//       return CIRCUIT_DATA.getNewChange();
+//    }
 }

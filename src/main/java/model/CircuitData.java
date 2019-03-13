@@ -2,7 +2,9 @@ package model;
 
 import com.sun.org.apache.xpath.internal.operations.And;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Queue;
 
 
@@ -14,12 +16,13 @@ import java.util.Queue;
  */
 public class CircuitData {
     private HashMap<Integer,LogicGate> logicGates;
-    private Queue<NewChange> que; //Queue for NewChange JSON files being passed to client
+    private ArrayList<NewChange> list; //Queue for NewChange JSON files being passed to client
     //private long id;
     //private static Socket socket;
 
     public CircuitData(){
         logicGates = new HashMap<Integer, LogicGate>();
+        list = new ArrayList<NewChange>();
         //id = 1;
     }
     /**
@@ -31,7 +34,7 @@ public class CircuitData {
         //id++;
     }
     public void addNewChange(NewChange nc){
-        que.add(nc);
+        list.add(nc);
     }
     /**
      *
@@ -49,11 +52,11 @@ public class CircuitData {
      * meaning there are no new updates.
      */
     public NewChange getNewChange(){
-        if(que.peek()==null){
+        if(list.isEmpty()){
             NewChange nc = new NewChange(0,null,null);
             return nc;
         }else {
-            NewChange nc = que.remove();
+            NewChange nc = list.remove(0);
             return nc;
         }
     }
@@ -172,42 +175,77 @@ public class CircuitData {
      */
     public void turnOnOrOff(long id){
         for(int key: logicGates.keySet()){
-            if(key==id){
+            if(key==id) {
                 logicGates.get(key).turnOnOrOff();
                 //If gates output is 1, a message will be created to be sent to the client to update that the
                 //gate is "ON", else (0) the gate will be "OFF"
-                if(logicGates.get(key).getOutput()==1){
-                    NewChange nc = new NewChange(6,logicGates.get(key).getOutputId(),"ON");
-                    que.add(nc);
-                }else{
-                    NewChange nc = new NewChange(6,logicGates.get(key).getOutputId(),"OFF");
-                    que.add(nc);
+                if (logicGates.get(key).getOutput() == 1) {
+                    NewChange nc = new NewChange(6, logicGates.get(key).getOutputId(), "ON");
+                    list.add(nc);
+                } else {
+                    NewChange nc = new NewChange(6, logicGates.get(key).getOutputId(), "OFF");
+                    list.add(nc);
                 }
-            }
-            //When a switch is turned on/off every gate that is affected by this input must change their
-            //output as well therefore, while there is an outputId, that gate must be updated as well
-            for(int i = key; logicGates.get(i).getOutputId() != null; i = logicGates.get(i).getOutputId()){
-                if(logicGates.get(logicGates.get(i).getOutputId()).getConnectionOneId() == i){
-                    logicGates.get(logicGates.get(i).getOutputId()).setInput(logicGates.get(i).getOutput());
-                    //If gates output is 1, a message will be created to be sent to the client to update that the
-                    //gate is "ON", else (0) the gate will be "OFF"
-                    if(logicGates.get(logicGates.get(i).getOutputId()).getOutput()==1 ||
-                            logicGates.get(logicGates.get(i).getOutputId()).getOutput()==null){
-                        NewChange nc = new NewChange(6,logicGates.get(i).getOutputId(),"ON");
-                        que.add(nc);
-                    }else{
-                        NewChange nc = new NewChange(6,logicGates.get(i).getOutputId(),"OFF");
-                        que.add(nc);
+
+                //When a switch is turned on/off every gate that is affected by this input must change their
+                //output as well therefore, while there is an outputId, that gate must be updated as well
+                for (Integer i = key; logicGates.get(i).getOutputId() != null; i = logicGates.get(i).getOutputId()) {
+                    if (logicGates.get(logicGates.get(i).getOutputId()).getConnectionOneId() == i) {
+                        logicGates.get(logicGates.get(i).getOutputId()).setInput(logicGates.get(i).getOutput());
+                        //If gates output is 1, a message will be created to be sent to the client to update that the
+                        //gate is "ON", else (0) the gate will be "OFF"
+                        createNewChange6(i);
+                    } else if (logicGates.get(logicGates.get(i).getOutputId()).getConnectionTwoId() == i) {
+                        logicGates.get(logicGates.get(i).getOutputId()).setInput2(logicGates.get(i).getOutput());
+                        createNewChange6(i);
                     }
                 }
-                else if(logicGates.get(logicGates.get(i).getOutputId()).getConnectionTwoId() == i){
-                    logicGates.get(logicGates.get(i).getOutputId()).setInput2(logicGates.get(i).getOutput());
-                }
+
             }
         }
 
     }
+
+    private void createNewChange6(Integer i) {
+        if (logicGates.get(logicGates.get(i).getOutputId()).getOutput() == null || logicGates.get(logicGates.get(i).getOutputId()).getOutput() == 1) {
+            NewChange nc = new NewChange(6, logicGates.get(i).getOutputId(), "ON");
+            list.add(nc);
+        }
+        else{
+            NewChange nc = new NewChange(6, logicGates.get(i).getOutputId(), "OFF");
+            list.add(nc);
+        }
+    }
+
     public static void main(String[] args){
+        CircuitData data = new CircuitData();
+        Input i1 = new Input(1,1);
+        Input i2 = new Input(1,2);
+        Input i3 = new Input(1,3);
+        Input i4 = new Input(1,4);
+        XorGate xg = new XorGate(2,1);
+        AndGate ag = new AndGate(2,2);
+        AndGate ag2 = new AndGate(3,1);
+        Output o = new Output(4,1);
+        data.addGate(1,i1);
+        data.addGate(2,i2);
+        data.addGate(3,i3);
+        data.addGate(4,i4);
+        data.addGate(5,xg);
+        data.addGate(6,ag);
+        data.addGate(7,ag2);
+        data.addGate(8,o);
+        data.setInput(5,1);
+        data.setInput2(5,2);
+        data.setInput(6,3);
+        data.setInput2(6,4);
+        data.setInput(7,5);
+        data.setInput2(7,6);
+        data.setInput(8,7);
+        data.turnOnOrOff(2);
+        data.turnOnOrOff(3);
+        data.turnOnOrOff(4);
+        System.out.println(data.getGateInput(8));
     }
 }
 

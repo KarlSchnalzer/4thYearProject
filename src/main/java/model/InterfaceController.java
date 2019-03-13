@@ -26,6 +26,12 @@ public class InterfaceController {
         nc.update();
     }
 
+    @RequestMapping("/getNewChanges")
+    public NewChange getNewChanges(){
+        NewChange nc = NewChange.CIRCUIT_DATA.getNewChange();
+        return nc;
+    }
+
 }
 
 

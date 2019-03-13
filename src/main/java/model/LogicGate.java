@@ -171,6 +171,13 @@ public class LogicGate {
     public Integer getOutput(){
         return output;
     }
+
+    public boolean getState(){
+        if(getOutput()==1){
+            return true;
+        }
+        return false;
+    }
 }
 
 

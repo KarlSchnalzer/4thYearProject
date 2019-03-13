@@ -27,6 +27,9 @@ public class OrGate extends LogicGate{
      * @return - the output of the gate
      */
     public Integer getOutput(){
+        if(getInput1()==null || getInput2()==null){
+            return 0;
+        }
         if(getInput1()==1 || getInput2()==1){
             return 1;
         }

@@ -29,6 +29,9 @@ public class NotGate extends LogicGate{
      * @return - the output of the gate
      */
     public Integer getOutput(){
+        if(getInput1()==null){
+            return 0;
+        }
         return Math.abs(getInput1()-1);
     }
 
